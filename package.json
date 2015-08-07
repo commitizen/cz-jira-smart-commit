@@ -1,6 +1,6 @@
 {
   "name": "cz-jira-smart-commit",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A commitizen adapter for Jira smart commits",
   "main": "index.js",
   "scripts": {
