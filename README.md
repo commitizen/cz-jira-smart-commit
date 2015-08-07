@@ -2,6 +2,8 @@
 
 A commitizen adapter for [Jira smart commits](https://confluence.atlassian.com/display/FISHEYE/Using+smart+commits)
 
+![Screenshot](other/screenshot.png)
+
 ## Usage
 
 ### Add this adapter
