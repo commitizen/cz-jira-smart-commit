@@ -46,7 +46,7 @@ function prompter(cz, commit) {
       name: 'workflow',
       message: 'Workflow command (testing, closed, etc.) (optional):\n',
       validate: function(input) {
-        if (input && input.indexOf(' ')) {
+        if (input && input.indexOf(' ') !== -1) {
           return 'Workflows cannot have spaces in smart commits. If your workflow name has a space, use a dash (-)';
         }
       }
