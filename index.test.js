@@ -41,10 +41,6 @@ describe(`prompter`, () => {
       ].join(' '));
     });
 
-    it(`should throw an error without issues`, () => {
-      expect(() => commitAnswers({})).to.throw(/Must specify issue IDs/);
-    });
-
     ['comment', 'time', 'workflow', 'message'].forEach((item) => {
       it(`should just leave off ${item} if it's not specified`, () => {
         const issues = 'CZ-234 CZ-235';

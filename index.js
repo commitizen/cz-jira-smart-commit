@@ -27,34 +27,43 @@ function prompter(cz, commit) {
     {
       type: 'input',
       name: 'issues',
-      message: 'Jira Issue ID(s):\n'
+      message: 'Jira Issue ID(s) (required):\n',
+      validate: function(input) {
+        if (!input) {
+          return 'Must specify issue IDs, otherwise, just use a normal commit message';
+        } else {
+          return true;
+        }
+      }
     },
     {
       type: 'input',
       name: 'time',
-      message: 'Time spent (i.e. 3h 15m):\n'
+      message: 'Time spent (i.e. 3h 15m) (optional):\n'
     },
     {
       type: 'input',
       name: 'workflow',
-      message: 'Workflow command (testing, closed, etc.):\n'
+      message: 'Workflow command (testing, closed, etc.) (optional):\n',
+      validate: function(input) {
+        if (input && input.indexOf(' ')) {
+          return 'Workflows cannot have spaces in smart commits. If your workflow name has a space, use a dash (-)';
+        }
+      }
     },
     {
       type: 'input',
       name: 'comment',
-      message: 'Jira comment:\n'
+      message: 'Jira comment (optional):\n'
     },
     {
       type: 'input',
       name: 'message',
-      message: 'Anything else that would be helpful to note (not included in the Jira issue):\n'
+      message: 'Anything else that would be helpful to note (not included in the Jira issue) (optional):\n'
     }
   ], commitAnswers);
 
   function commitAnswers(answers) {
-    if (!answers.issues) {
-      throw new Error('Must specify issue IDs, otherwise, just use a normal commit message');
-    }
     commit(filter([
       answers.issues,
       answers.comment ? '#comment ' + answers.comment : undefined,
