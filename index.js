@@ -48,6 +48,8 @@ function prompter(cz, commit) {
       validate: function(input) {
         if (input && input.indexOf(' ') !== -1) {
           return 'Workflows cannot have spaces in smart commits. If your workflow name has a space, use a dash (-)';
+        } else {
+          return true;
         }
       }
     },
