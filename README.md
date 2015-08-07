@@ -1,6 +1,6 @@
 # cz-jira-smart-commit
 
-A [commitizen adapter for [Jira smart commits](https://confluence.atlassian.com/display/FISHEYE/Using+smart+commits)
+A commitizen adapter for [Jira smart commits](https://confluence.atlassian.com/display/FISHEYE/Using+smart+commits)
 
 ## Usage
 
