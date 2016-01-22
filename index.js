@@ -26,6 +26,18 @@ function prompter(cz, commit) {
   cz.prompt([
     {
       type: 'input',
+      name: 'message',
+      message: 'GitHub commit message (required):\n',
+      validate: function(input) {
+        if (!input) {
+          return 'empty commit message';
+        } else {
+          return true;
+        }
+      }
+    },
+    {
+      type: 'input',
       name: 'issues',
       message: 'Jira Issue ID(s) (required):\n',
       validate: function(input) {
@@ -35,11 +47,6 @@ function prompter(cz, commit) {
           return true;
         }
       }
-    },
-    {
-      type: 'input',
-      name: 'time',
-      message: 'Time spent (i.e. 3h 15m) (optional):\n'
     },
     {
       type: 'input',
@@ -55,23 +62,23 @@ function prompter(cz, commit) {
     },
     {
       type: 'input',
-      name: 'comment',
-      message: 'Jira comment (optional):\n'
+      name: 'time',
+      message: 'Time spent (i.e. 3h 15m) (optional):\n'
     },
     {
       type: 'input',
-      name: 'message',
-      message: 'Anything else that would be helpful to note (not included in the Jira issue) (optional):\n'
-    }
+      name: 'comment',
+      message: 'Jira comment (optional):\n'
+    },
   ], commitAnswers);
 
   function commitAnswers(answers) {
     commit(filter([
+      answers.message,
       answers.issues,
-      answers.comment ? '#comment ' + answers.comment : undefined,
-      answers.time ? '#time ' + answers.time : undefined,
       answers.workflow ? '#' + answers.workflow : undefined,
-      answers.message ? '\n' + answers.message : undefined
+      answers.time ? '#time ' + answers.time : undefined,
+      answers.comment ? '#comment ' + answers.comment : undefined,
     ]).join(' '));
   }
 }

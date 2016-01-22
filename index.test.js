@@ -26,37 +26,37 @@ describe(`prompter`, () => {
     });
 
     it(`should call commit with the proper message`, () => {
+      const message = 'sample commit message';
       const issues = 'CZ-234 CZ-235';
-      const time = '3y 2w 7d 8h 30m';
       const workflow = 'closed';
+      const time = '3y 2w 7d 8h 30m';
       const comment = 'This took waaaaay too long';
-      const message = 'It would not have been so bad except I got distracted...';
-      commitAnswers({issues, time, workflow, comment, message});
+      commitAnswers({message, issues, workflow, time, comment});
       expect(commit).to.have.been.calledWith([
+        message,
         issues,
-        `#comment ${comment}`,
-        `#time ${time}`,
         `#${workflow}`,
-        '\n' + message
+        `#time ${time}`,
+        `#comment ${comment}`
       ].join(' '));
     });
 
-    ['comment', 'time', 'workflow', 'message'].forEach((item) => {
+    ['workflow', 'time', 'comment'].forEach((item) => {
       it(`should just leave off ${item} if it's not specified`, () => {
+        const message = 'sample commit message';
         const issues = 'CZ-234 CZ-235';
-        const time = '3y 2w 7d 8h 30m';
         const workflow = 'closed';
+        const time = '3y 2w 7d 8h 30m';
         const comment = 'This took waaaaay too long';
-        const message = 'It would not have been so bad except I got distracted...';
-        const answers = {issues, time, workflow, comment, message};
+        const answers = {message, issues, workflow, time, comment};
         delete answers[item];
         commitAnswers(answers);
         expect(commit).to.have.been.calledWith(filter([
+          message,
           issues,
-          item !== 'comment' ? `#comment ${comment}` : undefined,
-          item !== 'time' ? `#time ${time}` : undefined,
           item !== 'workflow' ? `#${workflow}` : undefined,
-          item !== 'message' ? '\n' + message : undefined
+          item !== 'time' ? `#time ${time}` : undefined,
+          item !== 'comment' ? `#comment ${comment}` : undefined
         ]).join(' '));
       });
     })

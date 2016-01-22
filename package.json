@@ -1,6 +1,6 @@
 {
   "name": "cz-jira-smart-commit",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "A commitizen adapter for Jira smart commits",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,9 @@
     "jira smart commit"
   ],
   "author": "Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com/)",
+  "contributors": [
+    "Jane Kim <jane@janekim.me> (http://janekim.me)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/commitizen/cz-jira-smart-commit/issues"
