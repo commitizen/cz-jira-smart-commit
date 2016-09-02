@@ -1,28 +1,29 @@
 import sinon from 'sinon';
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
-import {prompter} from './index';
+import proxyquire from 'proxyquire';
 
 const {expect} = chai;
 chai.use(sinonChai);
 
 describe(`prompter`, () => {
-  let cz, commit;
+  let inquirer, commit, prompter;
   beforeEach(() => {
-    cz = {prompt: sinon.spy()};
+    inquirer = {prompt: sinon.spy()};
     commit = sinon.spy();
+    prompter = proxyquire('./', {inquirer}).prompter;
   });
 
-  it(`call cz.prompt`, () => {
-    prompter(cz);
-    expect(cz.prompt).to.have.been.calledWith(sinon.match.array, sinon.match.func);
+  it(`call inquirer.prompt`, () => {
+    prompter(inquirer);
+    expect(inquirer.prompt).to.have.been.calledWith(sinon.match.array, sinon.match.func);
   });
 
   describe(`commitAnswers`, () => {
     let commitAnswers;
     beforeEach(() => {
-      prompter(cz, commit);
-      commitAnswers = cz.prompt.getCall(0).args[1];
+      prompter(inquirer, commit);
+      commitAnswers = inquirer.prompt.getCall(0).args[1];
     });
 
     it(`should call commit with the proper message`, () => {
