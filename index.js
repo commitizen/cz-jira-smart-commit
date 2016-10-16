@@ -72,7 +72,7 @@ function prompter(cz, commit) {
       name: 'comment',
       message: 'Jira comment (optional):\n'
     },
-  ], commitAnswers);
+  ]).then(commitAnswers);
 
   function commitAnswers(answers) {
     commit(filter([
