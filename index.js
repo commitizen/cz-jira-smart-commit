@@ -1,3 +1,5 @@
+var inquirer = require('inquirer')
+
 // This can be any kind of SystemJS compatible module.
 // We use Commonjs here, but ES6 or AMD would do just
 // fine.
@@ -23,7 +25,7 @@ function prompter(cz, commit) {
   // See inquirer.js docs for specifics.
   // You can also opt to use another input
   // collection library if you prefer.
-  cz.prompt([
+  inquirer.prompt([
     {
       type: 'input',
       name: 'message',
