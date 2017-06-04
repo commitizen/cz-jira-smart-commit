@@ -1,5 +1,7 @@
 # cz-jira-smart-commit
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/commitizen/cz-jira-smart-commit.svg)](https://greenkeeper.io/)
+
 A commitizen adapter for [Jira smart commits](https://confluence.atlassian.com/display/FISHEYE/Using+smart+commits).
 
 ![Screenshot](other/screenshot.png)
