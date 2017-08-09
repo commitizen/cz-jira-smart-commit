@@ -6,6 +6,16 @@ A commitizen adapter for [Jira smart commits](https://confluence.atlassian.com/d
 
 ## Usage
 
+### Global Installation
+
+For a quick global installation of the plugin, simply run the `install.sh` script present in this repo:
+
+```
+chmod +x install.sh
+
+./install.sh
+```
+
 ### Add this adapter
 
 Install this adapter
