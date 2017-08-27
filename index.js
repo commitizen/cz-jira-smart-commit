@@ -3,7 +3,10 @@ var inquirer = require('inquirer')
 // This can be any kind of SystemJS compatible module.
 // We use Commonjs here, but ES6 or AMD would do just
 // fine.
-module.exports = {prompter: prompter};
+module.exports = {
+  prompter: prompter,
+  formatCommit: formatCommit
+};
 
 // When a user runs `git cz`, prompter will
 // be executed. We pass you cz, which currently
@@ -72,17 +75,19 @@ function prompter(cz, commit) {
       name: 'comment',
       message: 'Jira comment (optional):\n'
     },
-  ]).then(commitAnswers);
+  ]).then((answers) => {
+    formatCommit(commit, answers);
+  });
+}
 
-  function commitAnswers(answers) {
-    commit(filter([
-      answers.message,
-      answers.issues,
-      answers.workflow ? '#' + answers.workflow : undefined,
-      answers.time ? '#time ' + answers.time : undefined,
-      answers.comment ? '#comment ' + answers.comment : undefined,
-    ]).join(' '));
-  }
+function formatCommit(commit, answers) {
+  commit(filter([
+    answers.message,
+    answers.issues,
+    answers.workflow ? '#' + answers.workflow : undefined,
+    answers.time ? '#time ' + answers.time : undefined,
+    answers.comment ? '#comment ' + answers.comment : undefined,
+  ]).join(' '));
 }
 
 function filter(array) {

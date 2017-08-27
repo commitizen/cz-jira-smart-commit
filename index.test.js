@@ -1,62 +1,46 @@
-import sinon from 'sinon';
-import chai from 'chai';
-import sinonChai from 'sinon-chai';
-import proxyquire from 'proxyquire';
-
-const {expect} = chai;
+const sinon = require('sinon');
+const chai = require('chai');
+const sinonChai = require('sinon-chai');
+const expect = chai.expect;
 chai.use(sinonChai);
 
-describe(`prompter`, () => {
-  let inquirer, commit, prompter, commitAnswers;
+const czJiraSmartCommit = require('./index.js');
 
-  before(() => {
-    commit = sinon.spy();
-    inquirer = {prompt: sinon.spy()};
-    prompter = proxyquire('./', {inquirer}).prompter;
-  });
-
-  beforeEach(() => {
-    prompter(null, commit);
-    commitAnswers = inquirer.prompt.getCall(0).args[1];
-  });
-
-  it(`should call commit with the proper message`, () => {
-    const message = 'sample commit message';
-    const issues = 'CZ-234 CZ-235';
-    const workflow = 'closed';
-    const time = '3y 2w 7d 8h 30m';
-    const comment = 'This took waaaaay too long';
-    commitAnswers({message, issues, workflow, time, comment});
-    expect(commit).to.have.been.calledWith([
-      message,
-      issues,
-      `#${workflow}`,
-      `#time ${time}`,
-      `#comment ${comment}`
-    ].join(' '));
-  });
-
-  ['workflow', 'time', 'comment'].forEach((item) => {
-    it(`should just leave off ${item} if it's not specified`, () => {
-      const message = 'sample commit message';
-      const issues = 'CZ-234 CZ-235';
-      const workflow = 'closed';
-      const time = '3y 2w 7d 8h 30m';
-      const comment = 'This took waaaaay too long';
-      const answers = {message, issues, workflow, time, comment};
-      delete answers[item];
-      commitAnswers(answers);
-      expect(commit).to.have.been.calledWith(filter([
-        message,
-        issues,
-        item !== 'workflow' ? `#${workflow}` : undefined,
-        item !== 'time' ? `#time ${time}` : undefined,
-        item !== 'comment' ? `#comment ${comment}` : undefined
-      ]).join(' '));
-    });
+describe('prompt for inputs', () => {
+  it('should be a function',  () => {
+    expect(czJiraSmartCommit.prompter).to.be.a('function');
   });
 });
 
-function filter(array) {
-  return array.filter(Boolean);
-}
+describe('format commits', () => {
+
+  const message = 'sample commit message';
+  const issues = 'CZ-234 CZ-235';
+  const workflow = 'closed';
+  const time = '3y 2w 7d 8h 30m';
+  const comment = 'This took waaaaay too long';
+
+  it('should be a function', () => {
+    expect(czJiraSmartCommit.formatCommit).to.be.a('function');
+  });
+  it('should perform a full commit', () => {
+    czJiraSmartCommit.formatCommit((result) => {
+      expect(result).to.equal('sample commit message CZ-234 CZ-235 #closed #time 3y 2w 7d 8h 30m #comment This took waaaaay too long')
+    }, {message, issues, workflow, time, comment});
+  });
+  it('should commit without a workflow', () => {
+    czJiraSmartCommit.formatCommit((result) => {
+      expect(result).to.equal('sample commit message CZ-234 CZ-235 #time 3y 2w 7d 8h 30m #comment This took waaaaay too long')
+    }, {message, issues, time, comment});
+  });
+  it('should commit without a time', () => {
+    czJiraSmartCommit.formatCommit((result) => {
+      expect(result).to.equal('sample commit message CZ-234 CZ-235 #closed #comment This took waaaaay too long')
+    }, {message, issues, workflow, comment});
+  });
+  it('should commit without a comment', () => {
+    czJiraSmartCommit.formatCommit((result) => {
+      expect(result).to.equal('sample commit message CZ-234 CZ-235 #closed #time 3y 2w 7d 8h 30m')
+    }, {message, issues, workflow, time});
+  });
+});
