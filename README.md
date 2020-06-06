@@ -21,13 +21,16 @@ Forked from [cs-jira-smart-commit](https://www.npmjs.com/package/cz-jira-smart-c
 
 ## Writing your own questions and format
 
-Configuring transparent-commitizen is easy. All you need to do is modify the array passed to inquirer.prompt with your questions, and the function formatAnswers to add the answers to the message. It's a very simple file so you won't get lost.
+Configuring transparent-commitizen is easy, and I recommend you just look at index.js, but I'll provide some instructions here anyway. 
 
-Questions are a series of objects stored in an array. Each one should have `type: 'input'`, a name for the question, and a message that the user will see as a prompt. 
+To add a question, you need ask it by adding to the the array  passed to inquirer.prompt, and handle the answer by adding to the function formatAnswers. 
 
-They also take an optional function called validate, which should return true if the message passes. I omit the validate function from most of my projects, but you could write your own using `match()` or something. If you want to get fancy about input types or validation, head over to the [inquirer.js docs](https://www.npmjs.com/package/inquirer).
+Questions in the array passed to inquirer.prompt are a series of objects. Each one should have `type: 'input'`, a name for the question, and a message that the user will see as a prompt. 
+
+Question objects take a function called validate as an optional property. This should return true if the message passes. I omit the validate function from most of my projects, but you could write your own. If you're curious about input types or validate functions, head over to the [inquirer.js docs](https://www.npmjs.com/package/inquirer).
 
 Adding questions to the array of objects makes them available in the answers object. Each answer is a value keyed to the name you gave the question. So, to put to the answers to questions in your commit message, access them by their names in the formatCommit function. 
+
 
 ## Day to day work
 
