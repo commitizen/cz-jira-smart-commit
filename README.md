@@ -1,4 +1,6 @@
-
+![NPM](https://img.shields.io/npm/l/transparent-commitizen)
+![GitHub repo size](https://img.shields.io/github/repo-size/Ivo-Evans/transparent-commitizen)
+![npm](https://img.shields.io/npm/v/transparent-commitizen)
 # transparent-commitizen.
 
 A stripped-down, simple commitizen adapter that exposes its logic. This lets you check project-specific configs into source control. Be a transparent commitizen.
