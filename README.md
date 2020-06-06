@@ -6,9 +6,10 @@ Forked from [cs-jira-smart-commit](https://www.npmjs.com/package/cz-jira-smart-c
 
 ## Installation
 
-1. Have Commitizen installed (if it's not, run `npm install-g commitizen`)
+1. Have Commitizen installed (if it's not, run `npm install -g commitizen`)
 2. Copy index.js and .cz.json into a folder in your project called `commitconfig`. `commitconfig` shouldn't be inside node_modules (because we want to check this into version control)
-3. Add this line to your package.json
+3. if you've cloned this from a git repo, then inside `commitconfig/` run `git rm -rf .git`
+4. Add this line to your package.json
 
 ```
   "config": {
@@ -28,7 +29,7 @@ They also take an optional function called validate, which should return true if
 
 Adding questions to the array of objects makes them available in the answers object. Each answer is a value keyed to the name you gave the question. So, to put to the answers to questions in your commit message, access them by their names in the formatCommit function. 
 
-### Day to day work
+## Day to day work
 
 instead of `git commit`, use `git cz`: 
 
