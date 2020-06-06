@@ -1,41 +1,21 @@
 # cz-jira-smart-commit
 
-A commitizen adapter for [Jira smart commits](https://confluence.atlassian.com/display/FISHEYE/Using+smart+commits).
-
 ![Screenshot](other/screenshot.png)
 
-## Usage
+## Installation
 
-### Global Installation
-
-For a quick global installation of the plugin, simply run the `install.sh` script present in this repo:
-
-```
-chmod +x install.sh
-
-./install.sh
-```
-
-### Add this adapter
-
-Install this adapter
+1. Have Commitizen installed
+2. copy this folder into your npm project, but not node_modules (because we want to check this into version control)
+3. Add this line to your package.json
 
 ```
-npm install cz-jira-smart-commit
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-jira-smart-commit"
+    }
+  }
 ```
 
-Reference it in your `.cz.json` of your project
-
-```json
-{
-  "path": "node_modules/cz-jira-smart-commit/"
-}
-```
-
-or use commitizen to init
-```
-commitizen init cz-jira-smart-commit
-```
 
 
 ### Day to day work
