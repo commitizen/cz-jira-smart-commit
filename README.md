@@ -1,14 +1,15 @@
+
 # transparent-commitizen.
 
-A stripped-down, simple commitizen adapter that exposes its logic to be checked in to source control. This lets you have project-specific configs. Be a transparent commitizen.
+A stripped-down, simple commitizen adapter that exposes its logic. This lets you check project-specific configs into source control. Be a transparent commitizen.
 
-Forked from [cs-jira-smart-commit](https://www.npmjs.com/package/cz-jira-smart-commit) with love.
+Forked from [cs-jira-smart-commit](https://www.npmjs.com/package/cz-jira-smart-commit).
 
 ## Installation
 
-1. Have Commitizen installed (if it's not, run `npm install -g commitizen`)
-2. Copy index.js and .cz.json into a folder in your project called `commitconfig`. `commitconfig` shouldn't be inside node_modules (because we want to check this into version control)
-3. if you've cloned this from a git repo, then inside `commitconfig/` run `git rm -rf .git`
+1. If you don't already have commitizen, run `npm install -g commitizen`
+2. Install this adapter with `npm i -D transparent-commitzen`
+3. Copy commitconfig from node_modules/transparent-commitizen/ into the top level of your project 
 4. Add this line to your package.json
 
 ```
@@ -21,7 +22,7 @@ Forked from [cs-jira-smart-commit](https://www.npmjs.com/package/cz-jira-smart-c
 
 ## Writing your own questions and format
 
-Configuring transparent-commitizen is easy, and I recommend you just look at index.js, but I'll provide some instructions here anyway. 
+I recommend you look at index.js, which is extremely simple, but here are some instructions anyway. 
 
 To add a question, you need ask it by adding to the the array  passed to inquirer.prompt, and handle the answer by adding to the function formatAnswers. 
 
