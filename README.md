@@ -28,7 +28,7 @@ I recommend you look at index.js, which is extremely simple, but here are some i
 
 To add a question, you need ask it by adding to the the array  passed to inquirer.prompt, and handle the answer by adding to the function formatAnswers. 
 
-Questions in the array passed to inquirer.prompt are a series of objects. Each one should have `type: 'input'`, a name for the question, and a message that the user will see as a prompt. 
+Questions in the array passed to inquirer.prompt are a series of objects. Each one should have a type property (`type: 'input'` is a good place to start), a name for the question, and a message that the user will see as a prompt. 
 
 Question objects take a function called validate as an optional property. This should return true if the message passes. I omit the validate function from most of my projects, but you could write your own. If you're curious about input types or validate functions, head over to the [inquirer.js docs](https://www.npmjs.com/package/inquirer).
 
