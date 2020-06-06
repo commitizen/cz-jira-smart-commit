@@ -1,6 +1,6 @@
 {
   "name": "transparent-commitizen",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A stripped-down commitizen adapter that exposes config so that it can  be modified and checked into source control",
   "main": "index.js",
   "scripts": {
