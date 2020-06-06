@@ -13,25 +13,13 @@ const questions = [
       type: 'input',
       name: 'message',
       message: 'GitHub commit message (required):\n',
-      validate: function(input) {
-        if (!input) {
-          return 'empty commit message';
-        } else {
-          return true;
-        }
-      }
+      validate: exists
     },
     {
       type: 'input',
       name: 'issues',
       message: 'Jira Issue ID(s) (required):\n',
-      validate: function(input) {
-        if (!input) {
-          return 'Must specify issue IDs, otherwise, just use a normal commit message';
-        } else {
-          return true;
-        }
-      }
+      validate: exists
     },
     {
       type: 'input',
@@ -77,4 +65,9 @@ function filter(array) {
   return array.filter(function(item) {
     return !!item;
   });
+}
+
+function exists(input) {
+    if (input) { return true }
+    return "input required"
 }
