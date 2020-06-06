@@ -1,6 +1,6 @@
 # transparent-commitizen.
 
-A stripped-down, simple commitizen adapter that exposes its logic to be checked in to source control. This lets you have project-specific configs. Be a transparent commitizen!
+A stripped-down, simple commitizen adapter that exposes its logic to be checked in to source control. This lets you have project-specific configs. Be a transparent commitizen.
 
 Forked from [cs-jira-smart-commit](https://www.npmjs.com/package/cz-jira-smart-commit) with love.
 
