@@ -5,7 +5,9 @@
 
 A stripped-down, simple commitizen adapter that exposes its logic. This lets you check project-specific configs into source control. Be a transparent commitizen.
 
-Forked from [cs-jira-smart-commit](https://www.npmjs.com/package/cz-jira-smart-commit).
+Forked from [cz-jira-smart-commit](https://www.npmjs.com/package/cz-jira-smart-commit).
+
+Finally, I can't believe that I live in a world where this needs to be said, but it does: Black Lives Matter.
 
 ## Installation
 
@@ -30,7 +32,7 @@ To add a question, you need ask it by adding to the the array  passed to inquire
 
 Questions in the array passed to inquirer.prompt are a series of objects. Each one should have a type property (`type: 'input'` is a good place to start), a name for the question, and a message that the user will see as a prompt. 
 
-Question objects take a function called validate as an optional property. This should return true if the message passes. I omit the validate function from most of my projects, but you could write your own. If you're curious about input types or validate functions, head over to the [inquirer.js docs](https://www.npmjs.com/package/inquirer).
+Question objects take a function called validate as an optional property. I've included one helper validate function called exists, so if you want to make a field required you can add `validate: exists`. You can also look at exists() for the expected input and output of validate functions. If you're curious about input types or validate functions, head over to the [inquirer.js docs](https://www.npmjs.com/package/inquirer).
 
 Adding questions to the array of objects makes them available in the answers object. Each answer is a value keyed to the name you gave the question. So, to put to the answers to questions in your commit message, access them by their names in the formatCommit function. 
 

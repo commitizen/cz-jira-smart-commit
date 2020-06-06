@@ -1,49 +1,35 @@
-var inquirer = require('inquirer')
+const inquirer = require("inquirer");
 
 module.exports = {
   prompter: prompter,
-  formatCommit: formatCommit
+  formatCommit: formatCommit,
 };
 
-// By default, we'll de-indent your commit
-// template and will keep empty lines.
+// This is a set up for the github project board, with co-working in mind.
 
 const questions = [
-    {
-      type: 'input',
-      name: 'message',
-      message: 'GitHub commit message (required):\n',
-      validate: exists
-    },
-    {
-      type: 'input',
-      name: 'issues',
-      message: 'Jira Issue ID(s) (required):\n',
-      validate: exists
-    },
-    {
-      type: 'input',
-      name: 'workflow',
-      message: 'Workflow command (testing, closed, etc.) (optional):\n',
-      validate: function(input) {
-        if (input && input.indexOf(' ') !== -1) {
-          return 'Workflows cannot have spaces in smart commits. If your workflow name has a space, use a dash (-)';
-        } else {
-          return true;
-        }
-      }
-    },
-    {
-      type: 'input',
-      name: 'time',
-      message: 'Time spent (i.e. 3h 15m) (optional):\n'
-    },
-    {
-      type: 'input',
-      name: 'comment',
-      message: 'Jira comment (optional):\n'
-    },
-  ]
+  {
+    type: "input",
+    name: "message",
+    message: "GitHub commit message (required):\n",
+    validate: exists,
+  },
+  {
+    type: "input",
+    name: "closes",
+    message: "Closes issue number (optional):\n",
+  },
+  {
+    type: "input",
+    name: "references",
+    message: "References issues (space separated integers)(optional):\n",
+  },
+  {
+    type: "input",
+    name: "coauthorship",
+    message: "coauthor formatted as username <email> (optional):\n",
+  },
+];
 
 function prompter(cz, commit) {
   inquirer.prompt(questions).then((answers) => {
@@ -52,22 +38,26 @@ function prompter(cz, commit) {
 }
 
 function formatCommit(commit, answers) {
-  commit(filter([
-    answers.message,
-    answers.issues,
-    answers.workflow ? '#' + answers.workflow : undefined,
-    answers.time ? '#time ' + answers.time : undefined,
-    answers.comment ? '#comment ' + answers.comment : undefined,
-  ]).join(' '));
+    // you might want to consider conditional chaining here
+  commit(
+    filter([
+      answers.message,
+      answers.closes ? "\nCloses #" + answers.closes : undefined,
+      answers.references ? "\nRelates #" + answers.references.split(" ").join(" #") : undefined,
+      answers.coauthorship ? "\n\n" + answers.coauthorship : undefined
+    ]).join(" ")
+  );
 }
 
 function filter(array) {
-  return array.filter(function(item) {
+  return array.filter(function (item) {
     return !!item;
   });
 }
 
 function exists(input) {
-    if (input) { return true }
-    return "input required"
+  if (input) {
+    return true;
+  }
+  return "input required";
 }
